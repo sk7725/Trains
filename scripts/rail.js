@@ -4,7 +4,8 @@ const rail = extendContent(Block, "rail", {
     Draw.rect(this.rotateRegion[tile.rotation()%2], tile.drawx(), tile.drawy());
   },
   drawRequestRegion(req, list){
-    Draw.rect(this.rotateRegion[req.rotation%2], req.drawx(), req.drawy());
+    var reg=this.rotateRegion[req.rotation%2];
+    Draw.rect(reg, req.drawx(), req.drawy(), reg.getWidth() * req.animScale * Draw.scl, reg.getHeight() * req.animScale * Draw.scl, 0);
   },
   load(){
     this.super$load();
