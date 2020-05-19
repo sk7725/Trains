@@ -1,7 +1,7 @@
 
 size: 1
 breakable: true
-category: units
+category: distribution
 requirements: [
   lead/6
   graphite/2

@@ -1,7 +1,7 @@
 
 size: 3
 breakable: true
-category: units
+category: distribution
 requirements: [
   lead/24
   graphite/10
