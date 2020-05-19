@@ -1,0 +1,12 @@
+
+size: 3
+breakable: true
+category: units
+requirements: [
+  lead/24
+  graphite/10
+]
+health: 1600
+solid: false
+rotate: true
+hasShadow: false
