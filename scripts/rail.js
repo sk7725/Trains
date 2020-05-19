@@ -15,6 +15,10 @@ const rail = extendContent(Block, "rail", {
     }
   },
   canPlaceOn(tile){
-		return (tile.getNearby((tile.rotation()+1)%4).block().name != "trains-rail") && (tile.getNearby((tile.rotation()+3)%4).block().name != "trains-rail");
+    for(var i=0;i<4;i++){
+      if(tile.getNearby(i).block().name == "trains-rail" && tile.getNearby(i).rotation()%2 != i%2) return false;
+    }
+    return true;
+		//return (tile.getNearby((tile.rotation()+1)%4).block().name != "trains-rail") && (tile.getNearby((tile.rotation()+3)%4).block().name != "trains-rail");
 	}
 });
