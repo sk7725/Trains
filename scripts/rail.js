@@ -12,6 +12,7 @@ const rail = extendContent(Block, "rail", {
       Draw.rect(this.conRegion[3][res[0]], tile.drawx(), tile.drawy());
       Draw.rect(this.conRegion[3][(res[0]+3)%4], tile.drawx(), tile.drawy());
     }
+    Vars.ui.showLabel(res[1]+"-"+res[0],1,tile.worldx(),tile.worldy());
   },
   drawRequestRegion(req, list){
     var reg=this.rotateRegion[req.rotation%2];
