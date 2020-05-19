@@ -13,5 +13,8 @@ const rail = extendContent(Block, "rail", {
     for(var i=0;i<2;i++){
       this.rotateRegion.push(Core.atlas.find(this.name+"-"+i));
     }
-  }
+  },
+  canPlaceOn(tile){
+		return (tile.getNearby((tile.rotation()+1)%4).block().name != "trains-rail") && (tile.getNearby((tile.rotation()+3)%4).block().name != "trains-rail");
+	}
 });
