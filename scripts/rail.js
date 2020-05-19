@@ -5,14 +5,14 @@ const rail = extendContent(Block, "rail", {
     var res=this.connection(tile,tile.rotation());
     if(res[1]==-1) return;
     if(res[1]<8||res[1]==12) Draw.rect(this.conRegion[res[1]][res[0]], tile.drawx(), tile.drawy());
-    if(res[1]==8||res[1]==9||res[1]==11) Draw.rect(this.conRegion[8][res[0]%2], tile.drawx(), tile.drawy());
+    if(res[1]==10||res[1]==9||res[1]==11) Draw.rect(this.conRegion[8][res[0]%2], tile.drawx(), tile.drawy());
     if(res[1]==9) Draw.rect(this.conRegion[3][res[0]], tile.drawx(), tile.drawy());
     if(res[1]==11) Draw.rect(this.conRegion[3][tile.rotation()], tile.drawx(), tile.drawy());
     if(res[1]==8||res[1]==10){
       Draw.rect(this.conRegion[3][res[0]], tile.drawx(), tile.drawy());
       Draw.rect(this.conRegion[3][(res[0]+3)%4], tile.drawx(), tile.drawy());
     }
-    Vars.ui.showLabel(res[1]+"-"+res[0],1,tile.worldx(),tile.worldy());
+    //Vars.ui.showLabel(res[1]+"-"+res[0],1,tile.worldx(),tile.worldy());
   },
   drawRequestRegion(req, list){
     var reg=this.rotateRegion[req.rotation%2];
@@ -99,7 +99,7 @@ const rail = extendContent(Block, "rail", {
       }
     }
     else if(connections.length==3){
-      return [8-(connections[0]+connections[1]+connections[2]),(rot-(8-(connections[0]+connections[1]+connections[2]))+4)%4+8];
+      return [(8-(connections[0]+connections[1]+connections[2]))%4,(rot-(8-(connections[0]+connections[1]+connections[2]))+4)%4+8];
     }
     else{
       return [0,12];
