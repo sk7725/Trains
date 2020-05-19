@@ -10,3 +10,5 @@ health: 1600
 solid: false
 rotate: true
 hasShadow: false
+update: true
+group: none
