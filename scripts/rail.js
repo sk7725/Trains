@@ -32,12 +32,11 @@ const rail = extendContent(Block, "rail", {
       }
       this.conRegion.push(tmparr);
     }
-    this.rail=true;
   },
   /*
   canPlaceOn(tile){
     for(var i=0;i<4;i++){
-      if(tile.getNearby(i).block().rail && tile.getNearby(i).rotation()%2 != i%2) return false;
+      if(tile.getNearby(i).block().name == railname && tile.getNearby(i).rotation()%2 != i%2) return false;
     }
     return true;
 		//return (tile.getNearby((tile.rotation()+1)%4).block().name != "trains-rail") && (tile.getNearby((tile.rotation()+3)%4).block().name != "trains-rail");
@@ -47,24 +46,24 @@ const rail = extendContent(Block, "rail", {
     var connections=[];
     //var ret=[]; //rot, type
     for(var i=0;i<4;i++){
-      if(tile.getNearby(i).block().rail) connections.push(i);
+      if(tile.getNearby(i).block().name == railname) connections.push(i);
     }
     if(connections.length==0) return [rot%2,0];
     else if(connections.length==1){
       var other=tile.getNearby(connections[0]);
-      if((other.getNearby(connections[0]%2+1).block().rail) || (other.getNearby((connections[0]%2+3)%4).block().rail)) return [0,-1];
+      if((other.getNearby(connections[0]%2+1).block().name == railname) || (other.getNearby((connections[0]%2+3)%4).block().name == railname)) return [0,-1];
       return [connections[0],1];
     }
     else if(connections.length==2){
       if((connections[0]+connections[1])%2==0){
         //line
         var other=tile.getNearby(connections[0]);
-        var l1=other.getNearby(connections[0]%2+1).block().rail;
-        var l2=other.getNearby((connections[0]%2+3)%4).block().rail;
+        var l1=other.getNearby(connections[0]%2+1).block().name == railname;
+        var l2=other.getNearby((connections[0]%2+3)%4).block().name == railname;
         if(l1&&l2) return [0,-1];
         other=tile.getNearby(connections[1]);
-        var l3=other.getNearby(connections[0]%2+1).block().rail;
-        var l4=other.getNearby((connections[0]%2+3)%4).block().rail;
+        var l3=other.getNearby(connections[0]%2+1).block().name == railname;
+        var l4=other.getNearby((connections[0]%2+3)%4).block().name == railname;
         if(l3&&l4) return [0,-1];
         else if((l1||l2)&&(l3||l4)){
           if(l1&&l3){
@@ -98,12 +97,12 @@ const rail = extendContent(Block, "rail", {
         var other1=tile.getNearby(connections[0]);
         var other2=tile.getNearby(connections[1]);
 
-        if(other1.getNearby((connections[0]+1)%4).block().rail){
+        if(other1.getNearby((connections[0]+1)%4).block().name == railname){
           //corner filled
           return [connections[0],4];
         }
-        else if(other1.getNearby((connections[0]+3)%4).block().rail){
-          if(other2.getNearby((connections[1]+1)%4).block().rail){
+        else if(other1.getNearby((connections[0]+3)%4).block().name == railname){
+          if(other2.getNearby((connections[1]+1)%4).block().name == railname){
             //W
             return [connections[0],7];
           }
@@ -113,7 +112,7 @@ const rail = extendContent(Block, "rail", {
           }
         }
         else{
-          if(other2.getNearby((connections[1]+1)%4).block().rail){
+          if(other2.getNearby((connections[1]+1)%4).block().name == railname){
             //L+0
             return [connections[0],6];
           }
@@ -133,6 +132,5 @@ const rail = extendContent(Block, "rail", {
     else{
       return [0,12];
     }
-  },
-  rail:true
+  }
 });
