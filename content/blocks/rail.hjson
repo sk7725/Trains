@@ -8,7 +8,7 @@ requirements: [
 ]
 health: 500
 solid: false
-rotate: true
+//rotate: true
 hasShadow: false
 update: true
 group: none
