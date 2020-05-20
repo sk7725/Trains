@@ -6,11 +6,11 @@ const rail = extendContent(Block, "rail", {
     if(res[1]==-1) return;
     if(res[1]<8||res[1]==12) Draw.rect(this.conRegion[res[1]][res[0]], tile.drawx(), tile.drawy());
     if(res[1]==10||res[1]==9||res[1]==11) Draw.rect(this.conRegion[8][res[0]%2], tile.drawx(), tile.drawy());
-    if(res[1]==9) Draw.rect(this.conRegion[3][res[0]], tile.drawx(), tile.drawy());
-    if(res[1]==11) Draw.rect(this.conRegion[3][tile.rotation()], tile.drawx(), tile.drawy());
+    if(res[1]==9) Draw.rect(this.conRegion[13][res[0]], tile.drawx(), tile.drawy());
+    if(res[1]==11) Draw.rect(this.conRegion[13][tile.rotation()], tile.drawx(), tile.drawy());
     if(res[1]==8||res[1]==10){
-      Draw.rect(this.conRegion[3][res[0]], tile.drawx(), tile.drawy());
-      Draw.rect(this.conRegion[3][(res[0]+3)%4], tile.drawx(), tile.drawy());
+      Draw.rect(this.conRegion[13][res[0]], tile.drawx(), tile.drawy());
+      Draw.rect(this.conRegion[13][(res[0]+3)%4], tile.drawx(), tile.drawy());
     }
     //Vars.ui.showLabel(res[1]+"-"+res[0],1,tile.worldx(),tile.worldy());
   },
@@ -25,7 +25,7 @@ const rail = extendContent(Block, "rail", {
       this.rotateRegion.push(Core.atlas.find(this.name+"-2-"+i));
     }
     this.conRegion=[];
-    for(var i=0;i<13;i++){
+    for(var i=0;i<16;i++){
       var tmparr=[];
       for(var j=0;j<4;j++){
         tmparr.push(Core.atlas.find(this.name+"-"+i+"-"+j));
@@ -33,7 +33,6 @@ const rail = extendContent(Block, "rail", {
       this.conRegion.push(tmparr);
     }
   },
-  /*
   canPlaceOn(tile){
     for(var i=0;i<4;i++){
       if(tile.getNearby(i).block().name == railname && tile.getNearby(i).rotation()%2 != i%2) return false;
@@ -41,7 +40,6 @@ const rail = extendContent(Block, "rail", {
     return true;
 		//return (tile.getNearby((tile.rotation()+1)%4).block().name != "trains-rail") && (tile.getNearby((tile.rotation()+3)%4).block().name != "trains-rail");
 	},
-  */
   connection(tile,rot){
     var connections=[];
     //var ret=[]; //rot, type
@@ -58,9 +56,34 @@ const rail = extendContent(Block, "rail", {
       if((connections[0]+connections[1])%2==0){
         //line
         var other=tile.getNearby(connections[0]);
-        if((other.getNearby(connections[0]%2+1).block().name == railname) || (other.getNearby((connections[0]%2+3)%4).block().name == railname)) return [0,-1];
+        var l1=other.getNearby(connections[0]%2+1).block().name == railname;
+        var l2=other.getNearby((connections[0]%2+3)%4).block().name == railname;
+        if(l1&&l2) return [0,-1];
         other=tile.getNearby(connections[1]);
-        if((other.getNearby(connections[1]%2+1).block().name == railname) || (other.getNearby((connections[1]%2+3)%4).block().name == railname)) return [0,-1];
+        var l3=other.getNearby(connections[0]%2+1).block().name == railname;
+        var l4=other.getNearby((connections[0]%2+3)%4).block().name == railname;
+        if(l3&&l4) return [0,-1];
+        else if((l1||l2)&&(l3||l4)){
+          if(l1&&l3){
+            //ㄹ
+          }
+          else if(l2&&l4){
+            //ㄹ2
+          }
+          else{
+            //ㄷ
+          }
+        }
+        else if(l1||l3){
+          //ㄱ
+          if(l1) return [connections[0],14];
+          return [connections[1],14];
+        }
+        else if(l2||l4){
+          //ㄴ
+          if(l2) return [connections[0],15];
+          return [connections[1],15];
+        }
         return [connections[0]%2,2];
       }
       else{
