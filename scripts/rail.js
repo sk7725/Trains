@@ -12,7 +12,7 @@ const rail = extendContent(Block, "rail", {
       Draw.rect(this.conRegion[13][res[0]], tile.drawx(), tile.drawy());
       Draw.rect(this.conRegion[13][(res[0]+3)%4], tile.drawx(), tile.drawy());
     }
-    //Vars.ui.showLabel(res[1]+"-"+res[0],1,tile.worldx(),tile.worldy());
+    Vars.ui.showLabel(res[1]+"-"+res[0],1,tile.worldx(),tile.worldy());
   },
   drawRequestRegion(req, list){
     var reg=this.rotateRegion[req.rotation%2];
@@ -33,13 +33,15 @@ const rail = extendContent(Block, "rail", {
       this.conRegion.push(tmparr);
     }
   },
+  /*
   canPlaceOn(tile){
-    for(var i=0;i<4;i++){
-      if(tile.getNearby(i).block().name == railname && tile.getNearby(i).rotation()%2 != i%2) return false;
-    }
+    //for(var i=0;i<4;i++){
+      //if(tile.getNearby(i).block().name == railname && tile.getNearby(i).rotation()%2 != i%2) return false;
+    //}
     return true;
 		//return (tile.getNearby((tile.rotation()+1)%4).block().name != "trains-rail") && (tile.getNearby((tile.rotation()+3)%4).block().name != "trains-rail");
 	},
+  */
   connection(tile,rot){
     var connections=[];
     //var ret=[]; //rot, type
