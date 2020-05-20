@@ -12,7 +12,7 @@ const rail = extendContent(Block, "rail", {
       Draw.rect(this.conRegion[13][res[0]], tile.drawx(), tile.drawy());
       Draw.rect(this.conRegion[13][(res[0]+3)%4], tile.drawx(), tile.drawy());
     }
-    Vars.ui.showLabel(res[1]+"-"+res[0],1,tile.worldx(),tile.worldy());
+    //Vars.ui.showLabel(res[1]+"-"+res[0],1,tile.worldx(),tile.worldy());
   },
   drawRequestRegion(req, list){
     var reg=this.rotateRegion[req.rotation%2];
@@ -58,12 +58,12 @@ const rail = extendContent(Block, "rail", {
       if((connections[0]+connections[1])%2==0){
         //line
         var other=tile.getNearby(connections[0]);
-        var l1=other.getNearby((connections[0]+1)%4).block().name == railname;
-        var l2=other.getNearby((connections[0]+3)%4).block().name == railname;
+        var l1=other.getNearby(connections[0]%2+1).block().name == railname;
+        var l2=other.getNearby((connections[0]%2+3)%4).block().name == railname;
         if(l1&&l2) return [0,-1];
         other=tile.getNearby(connections[1]);
-        var l3=other.getNearby((connections[0]+1)%4).block().name == railname;
-        var l4=other.getNearby((connections[0]+3)%4).block().name == railname;
+        var l3=other.getNearby(connections[0]%2+1).block().name == railname;
+        var l4=other.getNearby((connections[0]%2+3)%4).block().name == railname;
         if(l3&&l4) return [0,-1];
         else if((l1||l2)&&(l3||l4)){
           if(l1&&l3){
@@ -79,12 +79,12 @@ const rail = extendContent(Block, "rail", {
         else if(l1||l3){
           //ㄱ
           if(l1) return [connections[0],14];
-          return [connections[1],14];
+          return [connections[1],15];
         }
         else if(l2||l4){
           //ㄴ
           if(l2) return [connections[0],15];
-          return [connections[1],15];
+          return [connections[1],14];
         }
         return [connections[0]%2,2];
       }
