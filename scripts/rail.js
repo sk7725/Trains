@@ -4,7 +4,7 @@ const rail = extendContent(Block, "rail", {
     //Draw.rect(this.rotateRegion[tile.rotation()%2], tile.drawx(), tile.drawy());
     var res=this.connection(tile,tile.rotation());
     if(res[1]==-1) return;
-    if(res[1]<8||res[1]==12) Draw.rect(this.conRegion[res[1]][res[0]], tile.drawx(), tile.drawy());
+    if(res[1]<8||res[1]==12||res==14||res==15) Draw.rect(this.conRegion[res[1]][res[0]], tile.drawx(), tile.drawy());
     if(res[1]==10||res[1]==9||res[1]==11) Draw.rect(this.conRegion[8][res[0]%2], tile.drawx(), tile.drawy());
     if(res[1]==9) Draw.rect(this.conRegion[13][res[0]], tile.drawx(), tile.drawy());
     if(res[1]==11) Draw.rect(this.conRegion[13][tile.rotation()], tile.drawx(), tile.drawy());
