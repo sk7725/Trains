@@ -27,7 +27,7 @@ const rail = extendContent(Block, "rail", {
       this.rotateRegion.push(Core.atlas.find(this.name+"-2-"+i));
     }
     this.conRegion=[];
-    for(var i=0;i<16;i++){
+    for(var i=0;i<17;i++){
       var tmparr=[];
       for(var j=0;j<4;j++){
         tmparr.push(Core.atlas.find(this.name+"-"+i+"-"+j));
