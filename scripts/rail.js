@@ -4,10 +4,12 @@ const rail = extendContent(Block, "rail", {
     //Draw.rect(this.rotateRegion[tile.rotation()%2], tile.drawx(), tile.drawy());
     var res=this.connection(tile,tile.rotation());
     if(res[1]==-1) return;
-    if(res[1]<8||res[1]==12||res[1]==14||res[1]==15) Draw.rect(this.conRegion[res[1]][res[0]], tile.drawx(), tile.drawy());
-    if(res[1]==10||res[1]==9||res[1]==11) Draw.rect(this.conRegion[8][res[0]%2], tile.drawx(), tile.drawy());
-    if(res[1]==9) Draw.rect(this.conRegion[13][res[0]], tile.drawx(), tile.drawy());
-    if(res[1]==11) Draw.rect(this.conRegion[13][tile.rotation()], tile.drawx(), tile.drawy());
+    if(res[1]<8||res[1]>=12) Draw.rect(this.conRegion[res[1]][res[0]], tile.drawx(), tile.drawy());
+    else if(res[1]==10||res[1]==9||res[1]==11){
+      Draw.rect(this.conRegion[8][res[0]%2], tile.drawx(), tile.drawy());
+      if(res[1]==9) Draw.rect(this.conRegion[13][res[0]], tile.drawx(), tile.drawy());
+      if(res[1]==11) Draw.rect(this.conRegion[13][tile.rotation()], tile.drawx(), tile.drawy());
+    }
     if(res[1]==8||res[1]==10){
       Draw.rect(this.conRegion[13][res[0]], tile.drawx(), tile.drawy());
       Draw.rect(this.conRegion[13][(res[0]+3)%4], tile.drawx(), tile.drawy());
@@ -62,18 +64,20 @@ const rail = extendContent(Block, "rail", {
         var l2=other.getNearby((connections[0]%2+3)%4).block().name == railname;
         if(l1&&l2) return [0,-1];
         other=tile.getNearby(connections[1]);
-        var l3=other.getNearby(connections[0]%2+1).block().name == railname;
-        var l4=other.getNearby((connections[0]%2+3)%4).block().name == railname;
+        var l3=other.getNearby(connections[1]%2+1).block().name == railname;
+        var l4=other.getNearby((connections[1]%2+3)%4).block().name == railname;
         if(l3&&l4) return [0,-1];
         else if((l1||l2)&&(l3||l4)){
-          if(l1&&l3){
+          if(l1&&l4){
             //ㄹ
           }
-          else if(l2&&l4){
+          else if(l2&&l3){
             //ㄹ2
           }
           else{
             //ㄷ
+            if(l2) return [connections[0],4];
+            else return [connections[1],4];
           }
         }
         else if(l1||l3){
@@ -99,7 +103,7 @@ const rail = extendContent(Block, "rail", {
 
         if(other1.getNearby((connections[0]+1)%4).block().name == railname){
           //corner filled
-          return [connections[0],4];
+          return [connections[0],16];//impossible to trigger
         }
         else if(other1.getNearby((connections[0]+3)%4).block().name == railname){
           if(other2.getNearby((connections[1]+1)%4).block().name == railname){
@@ -127,7 +131,7 @@ const rail = extendContent(Block, "rail", {
       //enable for directional rails
       //return [(8-(connections[0]+connections[1]+connections[2]))%4,(rot-(8-(connections[0]+connections[1]+connections[2]))+8)%4+8];
       //else do this
-      return [(8-(connections[0]+connections[1]+connections[2]))%4,8];
+      return [(8-(connections[0]+connections[1]+connections[2]))%4,10];
     }
     else{
       return [0,12];
