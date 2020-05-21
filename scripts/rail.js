@@ -70,9 +70,11 @@ const rail = extendContent(Block, "rail", {
         else if((l1||l2)&&(l3||l4)){
           if(l1&&l4){
             //ㄹ
+            return [connections[0]%2,16];
           }
           else if(l2&&l3){
             //ㄹ2
+            return [connections[0]%2+2,16];
           }
           else{
             //ㄷ
@@ -103,7 +105,7 @@ const rail = extendContent(Block, "rail", {
 
         if(other1.getNearby((connections[0]+1)%4).block().name == railname){
           //corner filled
-          return [connections[0],16];//impossible to trigger
+          return [connections[0],-1];//impossible to trigger
         }
         else if(other1.getNearby((connections[0]+3)%4).block().name == railname){
           if(other2.getNearby((connections[1]+1)%4).block().name == railname){
